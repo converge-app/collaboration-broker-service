@@ -23,8 +23,9 @@
       "environmentVariables": {
         "HTTP_PORT": "8080",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "USERS_SERVICE_HTTP": "users-service.api.converge-app.net",
-        "PROJECTS_SERVICE_HTTPS": "projects-service.api.converge-app.net"
+        "COLLABORATION_SERVICE_HTTPS": "collaboration-service.api.converge-app.net",
+        "PAYMENTS_SERVICE_HTTPS": "payments-service.api.converge-app.net",
+        "BIDDING_SERVICE_HTTPS": "biddings-service.api.converge-app.net"
       },
       "applicationUrl": "https://localhost:443;http://localhost:80"
     },

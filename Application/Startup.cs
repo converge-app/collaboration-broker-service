@@ -56,7 +56,7 @@ namespace Application
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             services.AddTokenValidation(appSettings.Secret);
             services.AddScoped<IBrokerRepository, BrokerRepository>();
-            services.AddScoped<IBrokerervice, Brokerervice>();
+            services.AddScoped<IBrokerService, BrokerService>();
             services.AddTracing(options =>
             {
                 options.JaegerAgentHost = Environment.GetEnvironmentVariable("JAEGER_AGENT_HOST");
