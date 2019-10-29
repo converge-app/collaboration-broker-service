@@ -96,8 +96,17 @@ namespace Application.Controllers
         public async Task<IActionResult> GetByFreelancerId(string id)
         {
             var broker = await _brokerRepository.GetByFreelancerId(id);
-            var brokerDto = _mapper.Map<BrokerDto>(broker);
+            var brokerDto = _mapper.Map<IList<BrokerDto>>(broker);
             return Ok(brokerDto);
+        }
+
+        [HttpGet("project/{projectId}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetByProjectId([FromRoute] string projectId)
+        {
+            var broker = await _brokerRepository.GetByProjectId(projectId);
+            var brokerDtos = _mapper.Map<IList<BrokerDto>>(broker);
+            return Ok(brokerDtos);
         }
 
         [HttpGet("{id}")]
