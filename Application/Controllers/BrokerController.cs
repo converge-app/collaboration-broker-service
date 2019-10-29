@@ -95,5 +95,29 @@ namespace Application.Controllers
             }
         }
 
+        [HttpPost("complete")]
+        public async Task<IActionResult> CompleteProject([FromHeader] string authorization, [FromBody] CompleteProjectDto completeProjectDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.Name);
+                var projectComplete = await _brokerService.CompleteProject(authorization.Split(' ') [1], completeProjectDto.ProjectId);
+
+                ProjectCompleteDto projectCompleteDto = _mapper.Map<ProjectCompleteDto>(projectComplete);
+                return Ok(projectCompleteDto);
+            }
+            catch (EnvironmentNotSet)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new MessageObj(e.Message));
+            }
+        }
+
     }
 }

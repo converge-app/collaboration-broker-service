@@ -22,6 +22,7 @@ namespace Application.Services
     {
         Task<Result> InitializeResult(string authToken, Result result, string userId);
         Task<Result> PayForResult(string authToken, Result result, string userId);
+        Task<Result> CompleteProject(string authToken, string projectId);
     }
 
     public class BrokerService : IBrokerService
@@ -33,6 +34,60 @@ namespace Application.Services
         {
             _brokerRepository = brokerRepository;
             _client = client;
+        }
+
+        public async Task<Result> CompleteProject(string authToken, string projectId)
+        {
+            var project = await _client.GetProjectAsync(projectId);
+
+            if (project == null)
+                throw new InvalidResult("Couldn't fetch project for projectId: " + projectId);
+
+            var result = await _brokerRepository.GetByProjectId(project.Id);
+            if (result == null)
+                throw new InvalidResult("Result doesn't exist");
+
+            if (result.State != ResultStates.PaymentSubmittet)
+                throw new InvalidResult("Couldn't be set to done, as the result hasn't processed payments yet");
+
+            var toReplace = result;
+            toReplace.State = ResultStates.Done;
+
+            try
+            {
+                await _brokerRepository.Update(result.Id, toReplace);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+            try
+            {
+                bool response = await _client.PostEvent(authToken, new EventData
+                {
+                    Type = "result",
+                        OwnerId = result.EmployerId,
+                        ProjectId = result.ProjectId,
+                        Content = JsonConvert.SerializeObject(new
+                        {
+                            ResultId = result.Id,
+                                ProjectId = result.ProjectId,
+                                Status = ResultStates.Done,
+                                Files = result.FileUrl
+                        })
+
+                });
+                if (!response)
+                    throw new InvalidResult("Service failed");
+            }
+            catch (Exception e)
+            {
+                await _brokerRepository.Update(result.Id, result);
+                throw new InvalidResult("Couldn't bind to service Collaboration: " + e.Message);
+            }
+
+            return toReplace;
         }
 
         public async Task<Result> InitializeResult(string authToken, Result result, string userId)
@@ -134,7 +189,8 @@ namespace Application.Services
                         {
                             ResultId = toReplace.Id,
                                 ProjectId = toReplace.ProjectId,
-                                Status = ResultStates.PaymentSubmittet
+                                Status = ResultStates.PaymentSubmittet,
+                                Files = toReplace.FileUrl,
                         })
 
                 });

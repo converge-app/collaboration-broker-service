@@ -15,6 +15,7 @@ namespace Application.Helpers
             CreateMap<Result, InitializedResultDto>();
             CreateMap<PayCreationDto, Result>();
             CreateMap<Result, PaidForResultDto>();
+            CreateMap<Result, ProjectCompleteDto>();
         }
     }
 }
