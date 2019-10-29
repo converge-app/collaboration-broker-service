@@ -6,76 +6,76 @@ using MongoDB.Driver;
 
 namespace Application.Repositories
 {
-    public interface IBidRepository
+    public interface IBrokerRepository
     {
-        Task<List<Bid>> Get();
-        Task<Bid> GetById(string id);
-        Task<List<Bid>> GetByProject(string projectId);
-        Task<List<Bid>> GetByFreelancerId(string freelancerId);
-        Task<List<Bid>> GetByProjectAndFreelancer(string projectId, string freelancerId);
-        Task<Bid> Create(Bid bid);
-        Task Update(string id, Bid bidIn);
-        Task Remove(Bid bidIn);
+        Task<List<Broker>> Get();
+        Task<Broker> GetById(string id);
+        Task<List<Broker>> GetByProject(string projectId);
+        Task<List<Broker>> GetByFreelancerId(string freelancerId);
+        Task<List<Broker>> GetByProjectAndFreelancer(string projectId, string freelancerId);
+        Task<Broker> Create(Broker broker);
+        Task Update(string id, Broker brokerIn);
+        Task Remove(Broker brokerIn);
         Task Remove(string id);
     }
 
-    public class BidRepository : IBidRepository
+    public class BrokerRepository : IBrokerRepository
     {
-        private readonly IMongoCollection<Bid> _bids;
+        private readonly IMongoCollection<Broker> _broker;
 
-        public BidRepository(IDatabaseContext dbContext)
+        public BrokerRepository(IDatabaseContext dbContext)
         {
             if (dbContext.IsConnectionOpen())
-                _bids = dbContext.Bids;
+                _broker = dbContext.Broker;
         }
 
-        public async Task<List<Bid>> Get()
+        public async Task<List<Broker>> Get()
         {
-            return await (await _bids.FindAsync(bid => true)).ToListAsync();
+            return await (await _broker.FindAsync(broker => true)).ToListAsync();
         }
 
-        public async Task<Bid> GetById(string id)
+        public async Task<Broker> GetById(string id)
         {
-            return await (await _bids.FindAsync(bidding => bidding.Id == id)).FirstOrDefaultAsync();
+            return await (await _broker.FindAsync(broker => broker.Id == id)).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Bid>> GetByProject(string projectId)
+        public async Task<List<Broker>> GetByProject(string projectId)
         {
-            return await (await _bids.FindAsync(bid => bid.ProjectId == projectId)).ToListAsync();
+            return await (await _broker.FindAsync(broker => broker.ProjectId == projectId)).ToListAsync();
         }
 
-        public async Task<List<Bid>> GetByFreelancerId(string freelancerId)
+        public async Task<List<Broker>> GetByFreelancerId(string freelancerId)
         {
-            return await (await _bids.FindAsync(bid => bid.FreelancerId == freelancerId)).ToListAsync();
+            return await (await _broker.FindAsync(broker => broker.FreelancerId == freelancerId)).ToListAsync();
         }
 
-        public async Task<List<Bid>> GetByProjectAndFreelancer(string projectId, string freelancerId)
+        public async Task<List<Broker>> GetByProjectAndFreelancer(string projectId, string freelancerId)
         {
             return await (
-                await _bids.FindAsync(
-                    bid => bid.ProjectId == projectId && bid.FreelancerId == freelancerId)
+                await _broker.FindAsync(
+                    broker => broker.ProjectId == projectId && broker.FreelancerId == freelancerId)
             ).ToListAsync();
         }
 
-        public async Task<Bid> Create(Bid bid)
+        public async Task<Broker> Create(Broker broker)
         {
-            await _bids.InsertOneAsync(bid);
-            return bid;
+            await _broker.InsertOneAsync(broker);
+            return broker;
         }
 
-        public async Task Update(string id, Bid bidIn)
+        public async Task Update(string id, Broker brokerIn)
         {
-            await _bids.ReplaceOneAsync(bidding => bidding.Id == id, bidIn);
+            await _broker.ReplaceOneAsync(broker => broker.Id == id, brokerIn);
         }
 
-        public async Task Remove(Bid bidIn)
+        public async Task Remove(Broker brokerIn)
         {
-            await _bids.DeleteOneAsync(bidding => bidding.Id == bidIn.Id);
+            await _broker.DeleteOneAsync(broker => broker.Id == brokerIn.Id);
         }
 
         public async Task Remove(string id)
         {
-            await _bids.DeleteOneAsync(bidding => bidding.Id == id);
+            await _broker.DeleteOneAsync(broker => broker.Id == id);
         }
     }
 }

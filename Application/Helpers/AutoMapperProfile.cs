@@ -8,10 +8,10 @@ namespace Application.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Bid, BidDto>();
-            CreateMap<BidDto, Bid>();
-            CreateMap<BidUpdateDto, Bid>();
-            CreateMap<BidCreationDto, Bid>();
+            CreateMap<Broker, BrokerDto>();
+            CreateMap<BrokerDto, Broker>();
+            CreateMap<BrokerUpdateDto, Broker>();
+            CreateMap<BrokerCreationDto, Broker>();
         }
     }
 }

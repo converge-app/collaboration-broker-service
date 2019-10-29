@@ -15,39 +15,40 @@ using Newtonsoft.Json;
 
 namespace Application.Services
 {
-    public interface IBidService
+    public interface IBrokerervice
     {
-        Task<Bid> Open(Bid bid);
-        Task<bool> Accept(Bid bid, string authorizationToken);
+        Task<Broker> Open(Broker broker);
+        Task<bool> Accept(Broker broker, string authorizationToken);
     }
 
-    public class BidService : IBidService
+    public class Brokerervice : IBrokerervice
     {
-        private readonly IBidRepository _bidRepository;
+        private readonly IBrokerRepository _brokerRepository;
         private readonly IClient _client;
 
-        public BidService(IBidRepository bidRepository, IClient client)
+        public Brokerervice(IBrokerRepository brokerRepository, IClient client)
         {
-            _bidRepository = bidRepository;
+            _brokerRepository = brokerRepository;
             _client = client;
         }
 
-        public async Task<Bid> Open(Bid bid)
+        public async Task<Broker> Open(Broker broker)
         {
-            var project = await _client.GetProjectAsync(bid.ProjectId);
-            if (project == null) throw new InvalidBid();
+            var project = await _client.GetProjectAsync(broker.ProjectId);
+            if (project == null) throw new InvalidBroker();
 
-            var createdBid = await _bidRepository.Create(bid);
+            var createdBroker = await _brokerRepository.Create(broker);
 
-            return createdBid ?? throw new InvalidBid();
+            return createdBroker ??
+                throw new InvalidBroker();
         }
 
-        public async Task<bool> Accept(Bid bid, string authorizationToken)
+        public async Task<bool> Accept(Broker broker, string authorizationToken)
         {
-            var project = await _client.GetProjectAsync(bid.ProjectId);
-            if (project == null) throw new InvalidBid("projectId invalid");
+            var project = await _client.GetProjectAsync(broker.ProjectId);
+            if (project == null) throw new InvalidBroker("projectId invalid");
 
-            project.FreelancerId = bid.FreelancerId;
+            project.FreelancerId = broker.FreelancerId;
 
             return await _client.UpdateProjectAsync(authorizationToken, project);
         }

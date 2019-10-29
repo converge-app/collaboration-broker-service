@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Application.Exceptions
 {
     [Serializable]
-    public class InvalidBid : Exception
+    public class InvalidBroker : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,22 +13,18 @@ namespace Application.Exceptions
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public InvalidBid()
-        {
-        }
+        public InvalidBroker()
+        { }
 
-        public InvalidBid(string message) : base(message)
-        {
-        }
+        public InvalidBroker(string message) : base(message)
+        { }
 
-        public InvalidBid(string message, Exception inner) : base(message, inner)
-        {
-        }
+        public InvalidBroker(string message, Exception inner) : base(message, inner)
+        { }
 
-        protected InvalidBid(
+        protected InvalidBroker(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
-        {
-        }
-    } 
+        { }
+    }
 }

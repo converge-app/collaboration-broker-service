@@ -21,31 +21,30 @@ namespace Application.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class BiddingsController : ControllerBase
+    public class BrokerController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IBidRepository _bidRepository;
-        private readonly IBidService _bidService;
+        private readonly IBrokerRepository _brokerRepository;
+        private readonly IBrokerervice _brokerervice;
 
-        public BiddingsController(IBidService bidService, IBidRepository bidRepository, IMapper mapper)
+        public BrokerController(IBrokerervice brokerervice, IBrokerRepository brokerRepository, IMapper mapper)
         {
-            _bidService = bidService;
-            _bidRepository = bidRepository;
+            _brokerervice = brokerervice;
+            _brokerRepository = brokerRepository;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> OpenBid([FromBody] BidCreationDto bidDto)
+        public async Task<IActionResult> OpenBroker([FromBody] BrokerCreationDto brokerDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new
-                    {message = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)});
+                return BadRequest(new { message = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
 
-            var createBid = _mapper.Map<Bid>(bidDto);
+            var createBroker = _mapper.Map<Broker>(brokerDto);
             try
             {
-                var createdBid = await _bidService.Open(createBid);
-                return Ok(createdBid);
+                var createdBroker = await _brokerervice.Open(createBroker);
+                return Ok(createdBroker);
             }
             catch (UserNotFound)
             {
@@ -61,22 +60,21 @@ namespace Application.Controllers
             }
         }
 
-        [HttpPut("{bidId}")]
-        public async Task<IActionResult> AcceptBid([FromHeader] string authorization, [FromRoute] string bidId, [FromBody] BidUpdateDto bidDto)
+        [HttpPut("{brokerId}")]
+        public async Task<IActionResult> AcceptBroker([FromHeader] string authorization, [FromRoute] string brokerId, [FromBody] BrokerUpdateDto brokerDto)
         {
-            if (bidId != bidDto.Id)
+            if (brokerId != brokerDto.Id)
                 return BadRequest(new MessageObj("Invalid id(s)"));
 
             if (!ModelState.IsValid)
-                return BadRequest(new
-                    {message = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)});
+                return BadRequest(new { message = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
 
-            var updateBid = _mapper.Map<Bid>(bidDto);
+            var updateBroker = _mapper.Map<Broker>(brokerDto);
             try
             {
-                if (await _bidService.Accept(updateBid, authorization.Split(' ')[1]))
+                if (await _brokerervice.Accept(updateBroker, authorization.Split(' ') [1]))
                     return Ok();
-                throw new InvalidBid();
+                throw new InvalidBroker();
             }
             catch (Exception e)
             {
@@ -88,28 +86,27 @@ namespace Application.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            var bids = await _bidRepository.Get();
-            var bidDtos = _mapper.Map<IList<BidDto>>(bids);
-            return Ok(bidDtos);
+            var broker = await _brokerRepository.Get();
+            var brokerDtos = _mapper.Map<IList<BrokerDto>>(broker);
+            return Ok(brokerDtos);
         }
-
 
         [HttpGet("freelancer/{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetByFreelancerId(string id)
         {
-            var bids = await _bidRepository.GetByFreelancerId(id);
-            var bidsDto = _mapper.Map<BidDto>(bids);
-            return Ok(bidsDto);
+            var broker = await _brokerRepository.GetByFreelancerId(id);
+            var brokerDto = _mapper.Map<BrokerDto>(broker);
+            return Ok(brokerDto);
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(string id)
         {
-            var bid = await _bidRepository.GetById(id);
-            var bidDto = _mapper.Map<BidDto>(bid);
-            return Ok(bidDto);
+            var broker = await _brokerRepository.GetById(id);
+            var brokerDto = _mapper.Map<BrokerDto>(broker);
+            return Ok(brokerDto);
         }
 
         [HttpDelete("{id}")]
@@ -117,7 +114,7 @@ namespace Application.Controllers
         {
             try
             {
-                await _bidRepository.Remove(id);
+                await _brokerRepository.Remove(id);
             }
             catch (Exception e)
             {
