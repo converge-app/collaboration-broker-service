@@ -45,12 +45,16 @@ spec:
               value: "const"
             - name: PROJECTS_SERVICE_HTTP
               value: projects-service-master
+            - name: COLLABORATION_SERVICE_HTTP
+              value: collaboration-service-master
+            - name: PAYMENTS_SERVICE_HTTP
+              value: payments-service-master
           ports:
             - containerPort: {{ .Values.web.port }}
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "200m"
+              memory: "356Mi"
+              cpu: "300m"
           livenessProbe:
             initialDelaySeconds: 60
             failureThreshold: 10
