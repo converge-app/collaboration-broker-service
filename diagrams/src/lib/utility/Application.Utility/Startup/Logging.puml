@@ -1,0 +1,8 @@
+@startuml
+class Logging <<static>> {
+    + {static} CreateLogger() : void
+    + {static} AddLogging(loggerFactory:ILoggerFactory) : ILoggerFactory
+    + {static} AddTracing(services:IServiceCollection, setupAction:Action<JaegerTracingOptions>) : IServiceCollection
+    + {static} ConfigureJaegerTracing(services:IServiceCollection, setupAction:Action<JaegerTracingOptions>) : void
+}
+@enduml

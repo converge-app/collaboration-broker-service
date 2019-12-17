@@ -1,0 +1,12 @@
+@startuml
+class BrokerController {
+    - <<readonly>> _mapper : IMapper
+    - <<readonly>> _brokerRepository : IBrokerRepository
+    - <<readonly>> _brokerService : IBrokerService
+    + BrokerController(brokerervice:IBrokerService, brokerRepository:IBrokerRepository, mapper:IMapper)
+    + <<async>> SubmitResult(authorization:string, resultDto:ResultCreationDto) : Task<IActionResult>
+    + <<async>> Pay(authorization:string, payCreationDto:PayCreationDto) : Task<IActionResult>
+    + <<async>> CompleteProject(authorization:string, completeProjectDto:CompleteProjectDto) : Task<IActionResult>
+}
+ControllerBase <|-- BrokerController
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class JaegerTracingOptions {
+    + JaegerTracingOptions(hostName:string, agentPort:int)
+    + JaegerTracingOptions()
+    + SamplingRate : double <<get>> <<set>>
+    + LowerBound : double <<get>> <<set>>
+    + LoggerFactory : ILoggerFactory <<get>> <<set>>
+    + JaegerAgentHost : string <<get>> <<set>>
+    + JaegerAgentPort : int <<get>> <<set>>
+    + ServiceName : string <<get>> <<set>>
+}
+@enduml

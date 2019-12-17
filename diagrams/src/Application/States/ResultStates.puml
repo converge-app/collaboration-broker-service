@@ -1,0 +1,7 @@
+@startuml
+class ResultStates <<static>> {
+    + {static} FilesUploaded : string <<get>>
+    + {static} PaymentSubmittet : string <<get>>
+    + {static} Done : string <<get>>
+}
+@enduml

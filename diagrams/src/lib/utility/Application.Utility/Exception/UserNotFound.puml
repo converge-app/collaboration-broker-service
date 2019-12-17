@@ -1,0 +1,8 @@
+@startuml
+class UserNotFound {
+    + UserNotFound()
+    + UserNotFound(message:string)
+    + UserNotFound(message:string, inner:System.Exception)
+    # UserNotFound(info:SerializationInfo, context:StreamingContext)
+}
+@enduml

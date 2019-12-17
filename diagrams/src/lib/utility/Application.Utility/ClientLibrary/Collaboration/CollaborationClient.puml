@@ -1,0 +1,8 @@
+@startuml
+class CollaborationClient <<static>> {
+    - <<const>> _serviceHttp : string = "COLLABORATION_SERVICE_HTTP"
+    - <<const>> _serviceHttps : string = "COLLABORATION_SERVICE_HTTPS"
+    + {static} <<async>> PostEvent(factory:IClient, authorizationToken:string, @event:EventData) : Task<bool>
+    - {static} GetProjectsServiceHost() : string
+}
+@enduml

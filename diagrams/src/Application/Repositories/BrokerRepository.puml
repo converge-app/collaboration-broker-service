@@ -1,0 +1,25 @@
+@startuml
+interface IBrokerRepository {
+    Get() : Task<List<Result>>
+    GetById(id:string) : Task<Result>
+    GetByProject(projectId:string) : Task<List<Result>>
+    Create(broker:Result) : Task<Result>
+    Update(id:string, brokerIn:Result) : Task
+    Remove(brokerIn:Result) : Task
+    Remove(id:string) : Task
+    GetByProjectId(projectId:string) : Task<Result>
+}
+class BrokerRepository {
+    - <<readonly>> _broker : IMongoCollection<Result>
+    + BrokerRepository(dbContext:IDatabaseContext)
+    + <<async>> Get() : Task<List<Result>>
+    + <<async>> GetById(id:string) : Task<Result>
+    + <<async>> GetByProject(projectId:string) : Task<List<Result>>
+    + <<async>> Create(broker:Result) : Task<Result>
+    + <<async>> Update(id:string, brokerIn:Result) : Task
+    + <<async>> Remove(brokerIn:Result) : Task
+    + <<async>> Remove(id:string) : Task
+    + <<async>> GetByProjectId(projectId:string) : Task<Result>
+}
+IBrokerRepository <|-- BrokerRepository
+@enduml

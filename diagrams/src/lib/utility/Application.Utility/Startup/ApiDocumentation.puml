@@ -1,0 +1,6 @@
+@startuml
+class ApiDocumentation <<static>> {
+    + {static} AddApiDocumentation(services:IServiceCollection, serviceName:string, setupAction:Action<SwaggerGenOptions>) : IServiceCollection
+    + {static} UseApiDocumentation(app:IApplicationBuilder, serviceName:string) : IApplicationBuilder
+}
+@enduml

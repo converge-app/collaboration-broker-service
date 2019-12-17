@@ -1,0 +1,5 @@
+@startuml
+class Settings <<static>> {
+    + {static} GetAppSettings(services:IServiceCollection, configuration:IConfiguration) : IServiceCollection
+}
+@enduml

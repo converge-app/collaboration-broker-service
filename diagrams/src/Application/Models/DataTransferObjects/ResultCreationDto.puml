@@ -1,0 +1,11 @@
+@startuml
+class ResultCreationDto {
+    + ProjectId : string <<get>> <<set>>
+    + UserId : string <<get>> <<set>>
+    + FileUrl : string <<get>> <<set>>
+}
+class PayCreationDto {
+    + ProjectId : string <<get>> <<set>>
+    + UserId : string <<get>> <<set>>
+}
+@enduml

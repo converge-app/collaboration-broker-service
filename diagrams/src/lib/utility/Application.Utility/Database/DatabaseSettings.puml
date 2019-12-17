@@ -1,0 +1,32 @@
+@startuml
+interface IDatabaseSettings {
+    CollectionName : string <<get>> <<set>>
+    ConnectionString : string <<get>> <<set>>
+    DatabaseName : string <<get>> <<set>>
+    Credentials : MongoCredential <<get>> <<set>>
+    MongoServicePort : int <<get>> <<set>>
+    MongoServiceName : string <<get>> <<set>>
+    ReadFromEnvironment() : void
+    GetConfiguration() : IConfiguration
+    GetSettings() : MongoClientSettings
+}
+class DatabaseSettings {
+    - <<const>> _collectionName : string = "CollectionName"
+    - <<const>> _connectionString : string = "ConnectionString"
+    - <<const>> _databaseName : string = "DatabaseName"
+    - <<const>> _mongoUsername : string = "MONGO_INITDB_ROOT_USERNAME"
+    - <<const>> _mongoPassword : string = "MONGO_INITDB_ROOT_PASSWORD"
+    - <<const>> _mongoServicePort : string = "MONGO_SERVICE_PORT"
+    - <<const>> _mongoServiceName : string = "MONGO_SERVICE_NAME"
+    + CollectionName : string <<get>> <<set>>
+    + ConnectionString : string <<get>> <<set>>
+    + DatabaseName : string <<get>> <<set>>
+    + MongoServicePort : int <<get>> <<set>>
+    + MongoServiceName : string <<get>> <<set>>
+    + Credentials : MongoCredential <<get>> <<set>>
+    + ReadFromEnvironment() : void
+    + GetConfiguration() : IConfiguration
+    + GetSettings() : MongoClientSettings
+}
+IDatabaseSettings <|-- DatabaseSettings
+@enduml

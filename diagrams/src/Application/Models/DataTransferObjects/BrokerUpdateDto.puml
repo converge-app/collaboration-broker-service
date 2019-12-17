@@ -1,0 +1,7 @@
+@startuml
+class BrokerUpdateDto {
+    + Id : string <<get>> <<set>>
+    + ProjectId : string <<get>> <<set>>
+    + FileUrl : string <<get>> <<set>>
+}
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+class RequestMiddleware {
+    - <<readonly>> _next : RequestDelegate
+    - _logger : ILogger<RequestMiddleware>
+    + RequestMiddleware(next:RequestDelegate, loggerFactory:ILoggerFactory)
+    + <<async>> Invoke(httpContext:HttpContext) : Task
+}
+class RequestMiddlewareExtensions <<static>> {
+    + {static} UseRequestMiddleware(builder:IApplicationBuilder) : IApplicationBuilder
+}
+@enduml

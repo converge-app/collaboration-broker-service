@@ -1,0 +1,8 @@
+@startuml
+class ServiceDown {
+    + ServiceDown()
+    + ServiceDown(message:string)
+    + ServiceDown(message:string, inner:System.Exception)
+    # ServiceDown(info:SerializationInfo, context:StreamingContext)
+}
+@enduml

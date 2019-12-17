@@ -1,0 +1,16 @@
+@startuml
+interface IBrokerService {
+    InitializeResult(authToken:string, result:Result, userId:string) : Task<Result>
+    PayForResult(authToken:string, result:Result, userId:string) : Task<Result>
+    CompleteProject(authToken:string, projectId:string) : Task<Result>
+}
+class BrokerService {
+    - <<readonly>> _brokerRepository : IBrokerRepository
+    - <<readonly>> _client : IClient
+    + BrokerService(brokerRepository:IBrokerRepository, client:IClient)
+    + <<async>> CompleteProject(authToken:string, projectId:string) : Task<Result>
+    + <<async>> InitializeResult(authToken:string, result:Result, userId:string) : Task<Result>
+    + <<async>> PayForResult(authToken:string, result:Result, userId:string) : Task<Result>
+}
+IBrokerService <|-- BrokerService
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class ProjectClient <<static>> {
+    + {static} <<async>> GetProjectAsync(factory:IClient, projectId:string) : Task<ProjectData>
+    + {static} <<async>> UpdateProjectAsync(factory:IClient, authorizationToken:string, project:ProjectData) : Task<bool>
+    - {static} GetProjectsServiceHost() : string
+}
+@enduml

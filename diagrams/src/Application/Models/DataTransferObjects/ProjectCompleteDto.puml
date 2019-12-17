@@ -1,0 +1,10 @@
+@startuml
+class ProjectCompleteDto {
+    + Id : string <<get>> <<set>>
+    + ProjectId : string <<get>> <<set>>
+    + FileUrl : string <<get>> <<set>>
+    + FreelancerId : string <<get>> <<set>>
+    + EmployerId : string <<get>> <<set>>
+    + State : string <<get>> <<set>>
+}
+@enduml

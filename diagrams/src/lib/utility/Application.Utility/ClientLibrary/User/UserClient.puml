@@ -1,0 +1,6 @@
+@startuml
+class UserClient <<static>> {
+    + {static} <<async>> GetUserAsync(factory:IClient, ownerId:string) : Task<UserData>
+    - {static} GetUsersServiceHost() : string
+}
+@enduml

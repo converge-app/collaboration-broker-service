@@ -1,0 +1,10 @@
+@startuml
+class ProjectContentData {
+    + Title : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + Category : string <<get>> <<set>>
+    + SubCategory : string <<get>> <<set>>
+    + Amount : decimal <<get>> <<set>>
+    + Files : List<string> <<get>> <<set>>
+}
+@enduml

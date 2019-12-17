@@ -1,0 +1,9 @@
+@startuml
+class EventData {
+    + Id : string <<get>> <<set>>
+    + ProjectId : string <<get>> <<set>>
+    + OwnerId : string <<get>> <<set>>
+    + Type : string <<get>> <<set>>
+    + Content : string <<get>> <<set>>
+}
+@enduml

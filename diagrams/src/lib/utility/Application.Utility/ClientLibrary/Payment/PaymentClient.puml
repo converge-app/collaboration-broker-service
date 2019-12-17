@@ -1,0 +1,8 @@
+@startuml
+class PaymentClient <<static>> {
+    - <<const>> _serviceHttp : string = "PAYMENTS_SERVICE_HTTP"
+    - <<const>> _serviceHttps : string = "PAYMENTS_SERVICE_HTTPS"
+    + {static} <<async>> Transfer(factory:IClient, authorizationToken:string, transfer:TransferData) : Task<bool>
+    - {static} GetProjectsServiceHost() : string
+}
+@enduml

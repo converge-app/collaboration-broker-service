@@ -1,0 +1,8 @@
+@startuml
+class BidClient <<static>> {
+    - <<const>> _serviceHttp : string = "BIDDING_SERVICE_HTTP"
+    - <<const>> _serviceHttps : string = "BIDDING_SERVICE_HTTPS"
+    + {static} <<async>> GetBidsForProject(factory:IClient, projectId:string) : Task<List<BidData>>
+    - {static} GetProjectsServiceHost() : string
+}
+@enduml

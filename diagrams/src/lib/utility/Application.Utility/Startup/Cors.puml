@@ -1,0 +1,6 @@
+@startuml
+class Cors <<static>> {
+    + {static} AddMultipleDomainSupport(services:IServiceCollection) : IServiceCollection
+    + {static} UseMultipleDomainSupport(app:IApplicationBuilder) : IApplicationBuilder
+}
+@enduml

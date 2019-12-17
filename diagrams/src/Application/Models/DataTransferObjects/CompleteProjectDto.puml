@@ -1,0 +1,5 @@
+@startuml
+class CompleteProjectDto {
+    + ProjectId : string <<get>> <<set>>
+}
+@enduml

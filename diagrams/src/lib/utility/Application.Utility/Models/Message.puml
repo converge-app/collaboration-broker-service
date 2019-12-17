@@ -1,0 +1,6 @@
+@startuml
+class MessageObj {
+    + MessageObj(message:string)
+    + Message : string <<get>> <<set>>
+}
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class MongoDbContext <<static>> {
+    + {static} AddMongoDb(services:IServiceCollection) : IServiceCollection
+}
+@enduml

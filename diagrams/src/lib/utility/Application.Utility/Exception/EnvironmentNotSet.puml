@@ -1,0 +1,8 @@
+@startuml
+class EnvironmentNotSet {
+    + EnvironmentNotSet()
+    + EnvironmentNotSet(message:string)
+    + EnvironmentNotSet(message:string, inner:System.Exception)
+    # EnvironmentNotSet(info:SerializationInfo, context:StreamingContext)
+}
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class InvalidResult {
+    + InvalidResult()
+    + InvalidResult(message:string)
+    + InvalidResult(message:string, inner:Exception)
+    # InvalidResult(info:SerializationInfo, context:StreamingContext)
+}
+Exception <|-- InvalidResult
+@enduml

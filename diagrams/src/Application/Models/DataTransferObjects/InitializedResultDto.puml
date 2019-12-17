@@ -1,0 +1,8 @@
+@startuml
+class InitializedResultDto {
+    + Id : string <<get>> <<set>>
+    + ProjectId : string <<get>> <<set>>
+    + FreelancerId : string <<get>> <<set>>
+    + State : string <<get>> <<set>>
+}
+@enduml

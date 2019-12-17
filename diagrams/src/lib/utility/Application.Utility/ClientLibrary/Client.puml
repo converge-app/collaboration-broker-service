@@ -1,0 +1,10 @@
+@startuml
+interface IClient {
+    HttpClientFactory : IHttpClientFactory <<get>>
+}
+class Client {
+    + HttpClientFactory : IHttpClientFactory <<get>>
+    + Client(httpClientFactory:IHttpClientFactory)
+}
+IClient <|-- Client
+@enduml

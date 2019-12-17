@@ -1,0 +1,5 @@
+@startuml
+class Security <<static>> {
+    + {static} AddTokenValidation(services:IServiceCollection, secret:string) : IServiceCollection
+}
+@enduml
